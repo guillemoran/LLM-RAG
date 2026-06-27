@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RAG · Preguntá al documento</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #0d0d0d;
+        }
+
+        .card {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #ffd400;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8a8a8a;
+            margin-bottom: 28px;
+            font-size: 0.95rem;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #3a3a3a;
+            border-radius: 14px;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 12px;
+            background: #0d0d0d;
+            color: #f5f5f5;
+            transition: border-color 0.2s;
+        }
+        .name-input::placeholder { color: #6a6a6a; }
+        .name-input:focus { border-color: #ffd400; }
+        .name-input.error { border-color: #ff5c5c; background: #2a1414; }
+
+        .input-row { display: flex; gap: 10px; margin-bottom: 24px; }
+
+        input#question {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid #3a3a3a;
+            border-radius: 14px;
+            font-size: 1rem;
+            outline: none;
+            background: #0d0d0d;
+            color: #f5f5f5;
+            transition: border-color 0.2s;
+        }
+        input#question::placeholder { color: #6a6a6a; }
+        input#question:focus { border-color: #ffd400; }
+
+        button {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0d0d0d;
+            cursor: pointer;
+            background: #ffd400;
+            transition: transform 0.15s, background 0.2s;
+        }
+        button:hover { transform: translateY(-2px); background: #ffe04d; }
+        button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        .answer {
+            min-height: 80px;
+            padding: 22px;
+            border-radius: 16px;
+            background: #222222;
+            border: 1px solid #ffd400;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .answer.placeholder { color: #7a7a7a; font-size: 1rem; border-color: #3a3a3a; }
+        .answer.loading { color: #ffd400; border-color: #3a3a3a; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔮 Preguntá al documento</h1>
+        <p class="subtitle">Hacé una pregunta y el sistema responde en una oración</p>
+
+        <input
+            id="userName"
+            class="name-input"
+            type="text"
+            placeholder="Nombre de Usuario"
+            autocomplete="off"
+        />
+
+        <div class="input-row">
+            <input
+                id="question"
+                type="text"
+                placeholder="Ej: ¿Quién es Zara?"
+                autocomplete="off"
+            />
+            <button id="askBtn" onclick="ask()">Preguntar</button>
+        </div>
+
+        <div id="answer" class="answer placeholder">
+            Tu respuesta va a aparecer acá ✨
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById("question");
+        const button = document.getElementById("askBtn");
+        const answerBox = document.getElementById("answer");
+        const nameInput = document.getElementById("userName");
+
+        async function ask() {
+            const question = input.value.trim();
+            const userName = nameInput.value.trim();
+
+            // Nombre obligatorio: si está vacío, frenamos y marcamos el campo.
+            if (!userName) {
+                nameInput.classList.add("error");
+                nameInput.focus();
+                return;
+            }
+            nameInput.classList.remove("error");
+
+            if (!question) return;
+
+            button.disabled = true;
+            answerBox.className = "answer loading";
+            answerBox.textContent = "Pensando… 🤔";
+
+            try {
+                const response = await fetch("/ask", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        user_name: userName,
+                        question: question
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("La API respondió con error " + response.status);
+                }
+
+                const data = await response.json();
+                answerBox.className = "answer";
+                answerBox.textContent = data.answer;
+            } catch (error) {
+                answerBox.className = "answer";
+                answerBox.textContent = "Ups, algo falló: " + error.message;
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        // Permite enviar con la tecla Enter
+        input.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") ask();
+        });
+    </script>
+</body>
+</html>

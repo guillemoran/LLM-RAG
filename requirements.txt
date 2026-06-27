@@ -1,0 +1,8 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+pydantic-settings>=2.2
+cohere>=5.13
+chromadb>=0.5
+python-docx>=1.1
+python-dotenv>=1.0
