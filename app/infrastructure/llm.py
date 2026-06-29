@@ -34,7 +34,7 @@ class CohereClient:
             self._client = cohere.ClientV2(api_key=self._api_key)
         return self._client
 
-    # --- Embeddings -----------------------------------------------------------
+    # Embeddings
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
         """Embed corpus chunks (input_type tuned for indexing)."""
         return self._embed(texts, input_type="search_document")
@@ -58,7 +58,7 @@ class CohereClient:
             vectors = getattr(embeddings, "float", None)
         return [list(vector) for vector in vectors]
 
-    # --- Generation -----------------------------------------------------------
+    # Generation
     def generate(self, system_prompt: str, user_prompt: str) -> str:
         """Generate the final answer deterministically (temperature=0 + seed)."""
         response = self._ensure_client().chat(
