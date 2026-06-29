@@ -69,7 +69,61 @@
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "Ask (Spanish)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"user_name\": \"Guille\",\r\n  \"question\": \"¿Quién es Zara?\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/ask",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "ask"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "date",
+              "value": "Mon, 29 Jun 2026 15:29:32 GMT"
+            },
+            {
+              "key": "server",
+              "value": "uvicorn"
+            },
+            {
+              "key": "content-length",
+              "value": "151"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"user_name\": \"Guille\",\n    \"question\": \"¿Quién es Zara?\",\n    \"answer\": \"Zara es un explorador intrépido que busca la paz en la galaxia de Zenthoria. 🌟🌌\"\n}"
+        }
+      ]
     },
     {
       "name": "Ask (English)",
@@ -100,7 +154,61 @@
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "Ask (English)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"user_name\": \"Guille\",\r\n  \"question\": \"Who is Zara?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/ask",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "ask"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "date",
+              "value": "Mon, 29 Jun 2026 15:20:17 GMT"
+            },
+            {
+              "key": "server",
+              "value": "uvicorn"
+            },
+            {
+              "key": "content-length",
+              "value": "204"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"user_name\": \"Guille\",\n    \"question\": \"Who is Zara?\",\n    \"answer\": \"Zara is an intrepid explorer who embarks on a quest to uncover the secrets of an ancient artifact and prevent an intergalactic war. 🌌🚀🤝\"\n}"
+        }
+      ]
     },
     {
       "name": "Ask (Portuguese)",
@@ -131,7 +239,61 @@
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "Ask (Portuguese)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"user_name\": \"Guille\",\r\n  \"question\": \"Quem é Zara?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/ask",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "ask"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "date",
+              "value": "Mon, 29 Jun 2026 15:30:33 GMT"
+            },
+            {
+              "key": "server",
+              "value": "uvicorn"
+            },
+            {
+              "key": "content-length",
+              "value": "144"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"user_name\": \"Guille\",\n    \"question\": \"Quem é Zara?\",\n    \"answer\": \"Zara é um explorador intrépido que busca a paz na galáxia de Zenthoria. 🌟🌌\"\n}"
+        }
+      ]
     }
   ]
 }
